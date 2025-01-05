@@ -2,9 +2,9 @@
 
             let numberOfHits = 0
             let shipSunk = false
-
+            let shipLength = length 
             function checkStatus(){
-                return numberOfHits === length
+                return numberOfHits === shipLength
             }
             
             function hit(){
@@ -18,6 +18,7 @@
                 return {
                     name: name,
                     numberOfHits: numberOfHits,
+                    shipLength: length,
                     shipSunk: shipSunk
                 }
             }
@@ -26,7 +27,7 @@
                 return "This ship has been sunk!"
             }
 
-        return {hit, getStatus}
+        return {hit, getStatus, shipLength}
     }
 
 function gameBoardModule() {
@@ -36,7 +37,7 @@ function gameBoardModule() {
     const destroyerShip = createShip("destroyerShip",3)
     const submarineShip = createShip("submarineShip",3)
     const patrolBoatShip = createShip("patrolBoatShip",2)
-   
+    console.log(carrierShip.shipLength)
     // create a 10 by 10 2d grid
     let gameBoardArray = [
         [,,,,,,,,,,],
@@ -59,102 +60,95 @@ function gameBoardModule() {
 
         //horizontal direction
         if (direction === "horizontal"){
-            if (y + ship.length > 10) {
+            if (y + ship.shipLength > 10) {
                 return "Error, ship exceeds boards bounds"
             }
             
-            for (i = 0; i<ship.length;i++){
+            for (i = 0; i<ship.shipLength;i++){
                 if (gameBoardArray[x][y+i] !== undefined) {
                     return "Error, ship has already been placed here"
                 }
             }
 
-            for (i = 0; i<ship.length; i++) {
+            for (i = 0; i<ship.shipLength; i++) {
                 gameBoardArray[x][y+i] = ship
             }
 
         } else if (direction === "vertical"){
-            if (x + ship.length > 10) {
+            if (x + ship.shipLength > 10) {
                 return "Error, ship exceeds boards bounds"
             }
 
-            for (i = 0; i<ship.length;i++){
+            for (i = 0; i<ship.shipLength;i++){
                 if (gameBoardArray[y+i][x] !== undefined) {
                     return "Error, ship has already been placed here"
                 }
             }
-            for (i = 0; i<ship.length; i++) {
+            for (i = 0; i<ship.shipLength; i++) {
                 gameBoardArray[x+i][y] = ship
             }
         }
         return gameBoardArray
     }
 
-
     const placeShipRandom = function(ship){
         let randomNumber = Math.floor(Math.random() * 2)
+        let x = Math.floor(Math.random() * 10)
+        let y = Math.floor(Math.random() * 10)
+        let direction
         let placedSuccessfully = false
-        let maxRetries = 100
-        let retryCount = 0;
-
-        while (!placedSuccessfully && retryCount < maxRetries){
-            retryCount ++
-            let x = Math.floor(Math.random() * 10)
-            let y = Math.floor(Math.random() * 4)
-
-            direction = randomNumber === 0 ? "horizontal" : "vertical"
+        if (randomNumber === 0) {
+            direction = "horizontal"
+        } else if (randomNumber === 1){
+            direction = "vertical"
+        }
+        
+        while (!placedSuccessfully){
         //horizontal direction
-            if (direction === "horizontal" && y + ship.length <= 10){
-            
+            if (direction === "horizontal" && y + ship.shipLength <= 10){
                 let canPlace = true
-
-                for (i = 0; i < ship.length; i++){
+                for (i = 0; i < ship.shipLength; i++){
                     if (gameBoardArray[x][y+i] !== undefined) {
                         canPlace = false
                         break
                     }
                 }
-                
-                if (canPlace) {
-                    for (i = 0; i < ship.length; i++) {
+                if (canPlace){
+                    for (i = 0; i < ship.shipLength; i++){
                         gameBoardArray[x][y+i] = ship
                     }
                     placedSuccessfully = true
                 } else {
-                    console.log("Failed to place ship, retrying")
+                        x = Math.floor(Math.random() * 10)
+                        y = Math.floor(Math.random() * 10)
                 }
-            } else if (direction === "vertical" && x + ship.length <= 10){
-                
+            } else if (direction === "vertical" && x + ship.shipLength <= 10){
                 let canPlace = true
-
-                for (i = 0; i < ship.length; i++){
+                for (i = 0; i < ship.shipLength; i++){
                     if (gameBoardArray[x+i][y] !== undefined) {
                         canPlace = false
                         break
                     }
                 }
 
-                if (canPlace) {
-                    for (i = 0; i < ship.length; i++) {
+                if (canPlace){
+                    for (i = 0; i < ship.shipLength; i++){
                         gameBoardArray[x+i][y] = ship
                     }
                     placedSuccessfully = true
                 } else {
-                    console.log("Failed to place ship, retrying")
+                    x = Math.floor(Math.random() * 10)
+                    y = Math.floor(Math.random() * 10)
                 }
             } else {
-                console.log("Error: Ship exceeds board's bounds. Retrying...");
+                x = Math.floor(Math.random() * 10)
+                y = Math.floor(Math.random() * 10)
             }
-
-            if (retryCount >= maxRetries){
-                console.log("Failed to place ship after maximum attempts")
-            }
+        }
+        return gameBoardArray
     }
-    return gameBoardArray
-}
 
     function placeAllShipsRandom(){
-        
         let ships = [carrierShip, battleShip, destroyerShip, submarineShip, patrolBoatShip]
         ships.forEach(ship => {
             let placed = false
@@ -164,6 +158,7 @@ function gameBoardModule() {
             }
         })
     }
+    
 
     function receiveAttack(location1, location2){
         if (gameBoardArray[location1][location2] === undefined){
@@ -201,12 +196,12 @@ function playerModule(){
     const computerBoard = computer.getGameBoard()
     computer.placeAllShipsRandom()
 
-    console.log(playerBoard)
-    console.log(computerBoard)
+    console.table(playerBoard)
+    console.table(computerBoard)
 
 }
 
 
 playerModule()
 
-module.exports = {gameBoardModule: gameBoardModule}
+// module.exports = {gameBoardModule: gameBoardModule}
