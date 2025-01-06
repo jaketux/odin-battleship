@@ -1,4 +1,4 @@
-import {gameBoardModule} from  "./gameboard.js"
+import { gameBoardModule } from  "./gameboard.js"
 
 function playerModule(){
 
@@ -8,6 +8,8 @@ function playerModule(){
     const computer = gameBoardModule()
     const computerBoard = computer.getGameBoard()
 
+    return { player, playerBoard, computer, computerBoard}
+
 }
 
-playerModule()
+export { playerModule }

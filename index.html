@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
+    <link rel="stylesheet" href="./styles.css">
     <script src="./gameboard.js" type="module" defer></script>
-    <script src="./gameboard.js" type="module" defer></script>
+    <script src="./player.js" type="module" defer></script>
     <script src="./ship.js" type="module" defer></script>
     <script src="./index.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
-
 </head>
 <body>
     <div class="heading-box">
@@ -35,12 +34,6 @@
         <div class="gameboard-box">
             <!-- this should be hidden until game commencement. -->
             <div class="player-section">
-                <div class="player-grid">
-                    <!--DOM generated grid will go here-->
-                </div>
-                <div class="player-text">
-                    Your grid
-                </div>
                 <div class="grid-section">
                     <div class="grid-boundaries">
                         <div class="grid-top-row">
@@ -67,18 +60,18 @@
                             <div class="grid-boundary-square">9</div>
                             <div class="grid-boundary-square">10</div>
                         </div>
-                        <div class="game-grid">
+                        <div class="player-game-grid">
                           <!--DOM generated grid will go here-->
 
                         </div>
+                        <div class="player-text">
+                            Your grid
+                        </div>
                     </div>
+                </div>
             </div>
             <div class="opponent-section">
-                <div class="opponent-text">
-                    Opponent's grid
-                </div>
                 <div class="grid-section">
-
                     <div class="grid-boundaries">
                         <div class="grid-top-row">
                             <div class="grid-boundary-square">A</div>
@@ -104,9 +97,12 @@
                             <div class="grid-boundary-square">9</div>
                             <div class="grid-boundary-square">10</div>
                         </div>
-                        <div class="game-grid">
-                        <!--DOM generated grid will go here-->
+                        <div class="opponent-game-grid">
+                          <!--DOM generated grid will go here-->
 
+                        </div>
+                        <div class="opponent-text">
+                            Opponent's grid
                         </div>
                     </div>
                 </div>

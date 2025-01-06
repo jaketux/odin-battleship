@@ -1,4 +1,16 @@
-.game-grid {
+.gameboard-box{
+    display:flex;
+}
+
+.player-text, .opponent-text{
+    margin-top:50px;
+}
+.player-section, .opponent-section{
+    height:500px;
+    width:500px;
+}
+
+.player-game-grid, .opponent-game-grid {
     display:grid;
     grid-template-columns: repeat(10,1fr);
     grid-template-rows: repeat(10,1fr);
@@ -6,6 +18,10 @@
     position:relative;
     left:35px;
     top:20px;
+}
+
+.contains-boat{
+    background-color: lightgray
 }
 
 .grid-game-square{

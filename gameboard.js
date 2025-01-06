@@ -31,13 +31,13 @@ function gameBoardModule() {
                 return "Error, ship exceeds boards bounds"
             }
             
-            for (i = 0; i<ship.shipLength;i++){
+            for (var i = 0; i<ship.shipLength;i++){
                 if (gameBoardArray[x][y+i] !== undefined) {
                     return "Error, ship has already been placed here"
                 }
             }
 
-            for (i = 0; i<ship.shipLength; i++) {
+            for (var i = 0; i<ship.shipLength; i++) {
                 gameBoardArray[x][y+i] = ship
             }
 
@@ -46,12 +46,12 @@ function gameBoardModule() {
                 return "Error, ship exceeds boards bounds"
             }
 
-            for (i = 0; i<ship.shipLength;i++){
+            for (var i = 0; i<ship.shipLength;i++){
                 if (gameBoardArray[y+i][x] !== undefined) {
                     return "Error, ship has already been placed here"
                 }
             }
-            for (i = 0; i<ship.shipLength; i++) {
+            for (var i = 0; i<ship.shipLength; i++) {
                 gameBoardArray[x+i][y] = ship
             }
         }
@@ -73,14 +73,14 @@ function gameBoardModule() {
         while (!placedSuccessfully){
             if (direction === "horizontal" && y + ship.shipLength <= 10){
                 let canPlace = true
-                for (i = 0; i < ship.shipLength; i++){
+                for (var i = 0; i < ship.shipLength; i++){
                     if (gameBoardArray[x][y+i] !== undefined) {
                         canPlace = false
                         break
                     }
                 }
                 if (canPlace){
-                    for (i = 0; i < ship.shipLength; i++){
+                    for (var i = 0; i < ship.shipLength; i++){
                         gameBoardArray[x][y+i] = ship
                     }
                     placedSuccessfully = true
@@ -90,7 +90,7 @@ function gameBoardModule() {
                 }
             } else if (direction === "vertical" && x + ship.shipLength <= 10){
                 let canPlace = true
-                for (i = 0; i < ship.shipLength; i++){
+                for (var i = 0; i < ship.shipLength; i++){
                     if (gameBoardArray[x+i][y] !== undefined) {
                         canPlace = false
                         break
@@ -98,7 +98,7 @@ function gameBoardModule() {
                 }
 
                 if (canPlace){
-                    for (i = 0; i < ship.shipLength; i++){
+                    for (var i = 0; i < ship.shipLength; i++){
                         gameBoardArray[x+i][y] = ship
                     }
                     placedSuccessfully = true
@@ -153,7 +153,3 @@ function gameBoardModule() {
 
 export { gameBoardModule }
 
-const carrierShip = createShip("carrierShip",5)
-
-
-console.log(carrierShip)
