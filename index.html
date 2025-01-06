@@ -4,9 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleship</title>
-    <script src="index.js"></script>
+    <script src="./gameboard.js" type="module" defer></script>
+    <script src="./gameboard.js" type="module" defer></script>
+    <script src="./ship.js" type="module" defer></script>
+    <script src="./index.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
-    
+    <div class="heading-box">
+        <h1>Battleship</h1>
+        <div>Play the classic naval game and defeat the computer!</div>
+    </div>
+
+    <div class="main-box">
+
+        <div class="input-box">
+            <div class="text">
+                Enter your name here and click Play Game to begin!
+            </div>
+            <div class="player-name-input">
+                <label for="player-name">Player Name:</label>
+                <input type="text" id="player-name" name="player-name" placeholder="Commander Johnson" required></input>
+            </div>
+        </div>
+        <div class="start-box">
+          <button type="button">Play Game</button>
+        </div>
+
+        <div class="gameboard-box">
+            <!-- this should be hidden until game commencement. -->
+            <div class="player-section">
+                <div class="player-grid">
+                    <!--DOM generated grid will go here-->
+                </div>
+                <div class="player-text">
+                    Your grid
+                </div>
+                <div class="grid-section">
+                    <div class="grid-boundaries">
+                        <div class="grid-top-row">
+                            <div class="grid-boundary-square">A</div>
+                            <div class="grid-boundary-square">B</div>
+                            <div class="grid-boundary-square">C</div>
+                            <div class="grid-boundary-square">D</div>
+                            <div class="grid-boundary-square">E</div>
+                            <div class="grid-boundary-square">F</div>
+                            <div class="grid-boundary-square">G</div>
+                            <div class="grid-boundary-square">H</div>
+                            <div class="grid-boundary-square">I</div>
+                            <div class="grid-boundary-square">J</div>
+                        </div>
+                        <div class="grid-side-row">
+                            <div class="grid-boundary-square">1</div>
+                            <div class="grid-boundary-square">2</div>
+                            <div class="grid-boundary-square">3</div>
+                            <div class="grid-boundary-square">4</div>
+                            <div class="grid-boundary-square">5</div>
+                            <div class="grid-boundary-square">6</div>
+                            <div class="grid-boundary-square">7</div>
+                            <div class="grid-boundary-square">8</div>
+                            <div class="grid-boundary-square">9</div>
+                            <div class="grid-boundary-square">10</div>
+                        </div>
+                        <div class="game-grid">
+                          <!--DOM generated grid will go here-->
+
+                        </div>
+                    </div>
+            </div>
+            <div class="opponent-section">
+                <div class="opponent-text">
+                    Opponent's grid
+                </div>
+                <div class="grid-section">
+
+                    <div class="grid-boundaries">
+                        <div class="grid-top-row">
+                            <div class="grid-boundary-square">A</div>
+                            <div class="grid-boundary-square">B</div>
+                            <div class="grid-boundary-square">C</div>
+                            <div class="grid-boundary-square">D</div>
+                            <div class="grid-boundary-square">E</div>
+                            <div class="grid-boundary-square">F</div>
+                            <div class="grid-boundary-square">G</div>
+                            <div class="grid-boundary-square">H</div>
+                            <div class="grid-boundary-square">I</div>
+                            <div class="grid-boundary-square">J</div>
+                        </div>
+                        <div class="grid-side-row">
+                            <div class="grid-boundary-square">1</div>
+                            <div class="grid-boundary-square">2</div>
+                            <div class="grid-boundary-square">3</div>
+                            <div class="grid-boundary-square">4</div>
+                            <div class="grid-boundary-square">5</div>
+                            <div class="grid-boundary-square">6</div>
+                            <div class="grid-boundary-square">7</div>
+                            <div class="grid-boundary-square">8</div>
+                            <div class="grid-boundary-square">9</div>
+                            <div class="grid-boundary-square">10</div>
+                        </div>
+                        <div class="game-grid">
+                        <!--DOM generated grid will go here-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

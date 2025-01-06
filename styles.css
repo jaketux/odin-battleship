@@ -1,0 +1,39 @@
+.game-grid {
+    display:grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    width:400px;
+    position:relative;
+    left:35px;
+    top:20px;
+}
+
+.grid-game-square{
+    border:1px solid black;
+    height:35px;
+}
+
+.grid-top-row{
+    display:flex;
+    flex-direction:row;
+    width:400px;
+    position: absolute;
+    justify-content:space-between;
+    margin-left:35px;
+}
+
+.grid-boundary-square{
+    text-align:center;
+    height:37px;
+    width:30px;
+
+}
+
+.grid-side-row{
+    display:flex;
+    flex-direction:column;
+    position: absolute;
+    margin-top:30px;
+    padding-left:0px;
+
+}

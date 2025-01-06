@@ -1,4 +1,4 @@
-const {gameBoardModule: gameBoardModule} = require('./index')
+import {gameBoardModule} from "./gameboard.js"
 
 const gameBoard = gameBoardModule()
 
