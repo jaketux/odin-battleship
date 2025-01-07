@@ -68,3 +68,7 @@
     padding-left:0px;
 
 }
+
+.invisible{
+    visibility:hidden;   
+}

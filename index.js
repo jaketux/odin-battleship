@@ -7,14 +7,22 @@ import missImage from "./icons/miss.svg"
 import hitImage from "./icons/hit.svg"
 import boatsImage from "./icons/boat.svg"
 
-const game = gameControllerModule('Johnson')
+// Need to implement the annoucement of turns and winner of the game in the DOM, then also add the system for players to place ships prior to game commencing.
+
 
 function displayController() {
+
+    const playerName = document.querySelector('#player-name')
+    const gameBoardBox = document.querySelector('.gameboard-box')
+    gameBoardBox.classList.remove('invisible')
+
+    const game = gameControllerModule(playerName.value)
 
     function createDisplay(gameBoard, playername){
 
         const playerGridContainer = document.querySelector('.player-game-grid')
         const opponentGridContainer = document.querySelector('.opponent-game-grid')
+        
         if (playername === "player"){
             for (var i = 0; i < gameBoard.length; i++){
                 let gameB = gameBoard[i]
@@ -99,21 +107,33 @@ function displayController() {
             }
         }
 
+        document.addEventListener('computerMove', function(){
+            playerGridContainer.innerHTML = ""
+            opponentGridContainer.innerHTML = ""
+            createDisplay(game.playerBoard,"player")
+            createDisplay(game.computerBoard,"opponent")
+        })
+
     }
+
+
 
     createDisplay(game.playerBoard,"player")
     createDisplay(game.computerBoard,"opponent")
-    return { createDisplay}
+
+    return { createDisplay }
 
 }
 
+const startButton = document.querySelector("#start-btn")
 
-displayController()
+startButton.addEventListener("click", function(){
+    displayController()
+})
 
-game.checkWinner()
 
 
 
-// module.exports = {gameBoardModule: gameBoardModule}
+
 
 

@@ -63,10 +63,16 @@ function gameControllerModule (playerName){
                 checkWinner()
                 switchPlayerTurn()
                 newRound()
-                playRound()
+                setTimeout(() => {
+                    let compX = Math.floor(Math.random() * 10)
+                    let compY = Math.floor(Math.random() * 10)
+                    playRound(compX,compY)
+                    const computerMoveEvent = new CustomEvent('computerMove', {
+                        detail: "The computer made a move"
+                    })
+                    document.dispatchEvent(computerMoveEvent)
+                },500)
             } else if (activePlayer === players[1]){
-                let x = Math.floor(Math.random() * 10)
-                let y = Math.floor(Math.random() * 10)
                 player.receiveAttack(x,y)
                 checkWinner()
                 switchPlayerTurn()
