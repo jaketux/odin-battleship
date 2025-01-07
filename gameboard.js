@@ -20,9 +20,12 @@ function gameBoardModule() {
         [,,,,,,,,,,],
         [,,,,,,,,,,]
     ]
+    
     const getGameBoard = function(){
         return gameBoardArray 
     }
+
+    let ships = [carrierShip, battleShip, destroyerShip, submarineShip, patrolBoatShip]
 
     const placeShip = function (ship, x, y, direction){
 
@@ -115,7 +118,6 @@ function gameBoardModule() {
     }
 
     function placeAllShipsRandom(){
-        let ships = [carrierShip, battleShip, destroyerShip, submarineShip, patrolBoatShip]
         ships.forEach(ship => {
             let placed = false
             while (!placed) {
@@ -126,30 +128,47 @@ function gameBoardModule() {
     }
     
     function receiveAttack(location1, location2){
-        if (gameBoardArray[location1][location2] === undefined){
-            gameBoardArray[location1][location2] = "No hit"
-            return "Attack missed!"
-        } else {
-            gameBoardArray[location1][location2].hit()
+        const target = gameBoardArray[location1][location2]
+        if (target && target.hasOwnProperty('hit')){
+            target.hit()
+            gameBoardArray[location1][location2] = 'Hit'
+            console.log("A ship has been hit!")
             return "A ship has been hit!"
-        }
+        } else if (target === undefined) {
+            gameBoardArray[location1][location2] = "No hit"
+            console.log("Attack missed!")
+            return "Attack missed!"
+        } 
     }
 
-    function checkSunk(carrierShip, battleShip, destroyerShip, submarineShip, patrolBoatShip) {
-        if (carrierShip.getStatus().shipSunk && 
-        battleShip.getStatus().shipSunk && 
-        destroyerShip.getStatus().shipSunk && 
-        submarineShip.getStatus().shipSunk && 
-        patrolBoatShip.getStatus().shipSunk
-        ){
-            return "All of your ships have been sunk!"
+    function resetBoard () {
+        gameBoardArray = [
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,],
+            [,,,,,,,,,,]
+        ]
+    }
+
+    function checkSunk() {
+        for (var i = 0; i < ships.length; i++){
+            if (!ships[i].getStatus().shipSunk) {
+                return false
+            } 
         }
-        return "You are still in the game!"
+        return true
     }
     
-    return {placeShip, placeAllShipsRandom, getGameBoard, receiveAttack, checkSunk}
+    return {placeShip, placeAllShipsRandom, getGameBoard, receiveAttack, checkSunk, resetBoard}
 
 }
+
 
 export { gameBoardModule }
 

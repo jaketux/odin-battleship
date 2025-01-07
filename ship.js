@@ -3,8 +3,11 @@ function createShip (name, length){
     let numberOfHits = 0
     let shipSunk = false
     let shipLength = length 
+
     function checkStatus(){
-        return numberOfHits === shipLength
+        if (numberOfHits === shipLength) {
+            return true
+        }
     }
     
     function hit(){
@@ -23,11 +26,7 @@ function createShip (name, length){
         }
     }
 
-    if (shipSunk) {
-        return "This ship has been sunk!"
-    }
-
-return {hit, getStatus, shipLength}
+    return { hit, getStatus, shipLength}
 }
 
 export { createShip }

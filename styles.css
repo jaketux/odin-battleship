@@ -20,13 +20,28 @@
     top:20px;
 }
 
+.opponent-section{
+    margin-left: 40px;
+}
+.small-icon{
+    height:30px;
+    width: 30px;
+}
+
 .contains-boat{
     background-color: lightgray
 }
 
 .grid-game-square{
+    display:flex;
+    justify-content:center;
+    align-items: center;
     border:1px solid black;
     height:35px;
+}
+
+.hit-boat{
+    background-color:lightcoral
 }
 
 .grid-top-row{
