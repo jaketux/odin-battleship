@@ -1,4 +1,5 @@
 import { gameBoardModule } from  "./gameboard.js"
+import { createDisplay, updateTurnText } from  "./index.js"
 
 function gameControllerModule (playerName){
 
@@ -28,7 +29,7 @@ function gameControllerModule (playerName){
         computer.getGameBoard()
     }
 
-    const resetBoard = function(){
+    const resetBothBoards = function(){
         player.resetBoard()
         computer.resetBoard()
     }
@@ -39,10 +40,16 @@ function gameControllerModule (playerName){
 
         if (player.checkSunk()){
             winnerOfGame = players[1]
-            console.log(players[1]+" is the winner!")
+            updateTurnText(players[1])
+            createDisplay("player", "player")
+            createDisplay("opponent", "opponent")
         } else if (computer.checkSunk()){
             winnerOfGame = players[0]
             console.log(players[0]+" is the winner!")
+            createDisplay("player", "player")
+            createDisplay("opponent", "opponent")
+
+            updateTurnText(players[0])
         } 
     }
 
@@ -55,7 +62,20 @@ function gameControllerModule (playerName){
         activePlayer = players[0]
     }
  
+    function makeComputerMove() {
+        let compX = Math.floor(Math.random() * 10)
+        let compY = Math.floor(Math.random() * 10)
+        player.receiveAttack(compX,compY)
+        checkWinner()
+        switchPlayerTurn()
+        newRound()
+    }
+
     const playRound = function(x,y){
+
+        if (winnerOfGame !== 0) {
+            return
+        }
 
         if (getActivePlayer() === activePlayer) {
             if (activePlayer === players[0]){
@@ -63,44 +83,24 @@ function gameControllerModule (playerName){
                 checkWinner()
                 switchPlayerTurn()
                 newRound()
-                setTimeout(() => {
-                    let compX = Math.floor(Math.random() * 10)
-                    let compY = Math.floor(Math.random() * 10)
-                    playRound(compX,compY)
-                    const computerMoveEvent = new CustomEvent('computerMove', {
-                        detail: "The computer made a move"
-                    })
-                    document.dispatchEvent(computerMoveEvent)
-                },500)
-            } else if (activePlayer === players[1]){
-                player.receiveAttack(x,y)
+                makeComputerMove()
+                createDisplay("player", "player")
+                createDisplay("opponent", "opponent")
+        } else if (activePlayer === players[1]){
                 checkWinner()
                 switchPlayerTurn()
                 newRound()
             } 
         }
     }
+    
+
 
     newRound()
 
-    return { player, computer, playerBoard, computerBoard, playRound, getActivePlayer, checkWinner, returnWinner, resetBoard, resetWinner }
+    return { player, computer, playerBoard, computerBoard, playRound, getActivePlayer, checkWinner, returnWinner, resetBothBoards, resetWinner }
 
 }
 
 export { gameControllerModule }
 
-
-
-//check to see whether hit or miss 
-
-// if hit, check to see if the hit sunk all of the ships
-
-// if not, player gets another turn for hitting a ship
-
-// computer takes a turn
-
-// check to see whether hit or miss
-
-    // if hit, check to see if the hit sunk all of the ships
-
-// if not, computer gets another turn for hitting a ship

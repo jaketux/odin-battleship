@@ -1,5 +1,40 @@
+body, .input-box{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+body{
+    font-family:Roboto, sans-serif
+}
+
+@font-face{
+    font-family: army;
+    src: url(./18\ ARMY.woff)
+}
+.heading-box{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.heading-text{
+    font-size:72px;
+    font-family:army
+}
+
+.subheading-text{
+    font-size:30px;
+}
+.start-box, .player-name-input, .heading-text, .subheading-text, .play-game-text{
+    margin-top:20px;
+}
+
+
 .gameboard-box{
     display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .player-text, .opponent-text{
@@ -71,4 +106,25 @@
 
 .invisible{
     visibility:hidden;   
+}
+
+.turn-text{
+    font-size:34px;
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.input-box{
+    margin-bottom:40px;
+}
+
+.player-text, .opponent-text{
+    font-size:24px;
+    text-align:center;
+}
+
+.button-div{
+    display:flex;
+    justify-content:center;
+    align-items:center
 }

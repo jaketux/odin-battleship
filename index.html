@@ -8,27 +8,31 @@
     <script src="./gameboard.js" type="module" defer></script>
     <script src="./ship.js" type="module" defer></script>
     <script src="./gamecontroller.js" type="module" defer></script>
-    <script src="./index.js" defer></script>
+    <script src="./index.js" type="module" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Mysuru:wght@300;400;500;600;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="heading-box">
-        <h1>Battleship</h1>
-        <div>Play the classic naval game and defeat the computer!</div>
+        <div class="heading-text">Battleship</div>
+        <img src="./images/warship.png" alt="A warship">
+        <div class="subheading-text">Play the classic naval game and defeat the computer!</div>
     </div>
 
     <div class="main-box">
-
         <div class="input-box">
-            <div class="text">
+            <div class="play-game-text">
                 Enter your name here and click Play Game to begin!
             </div>
             <div class="player-name-input">
                 <label for="player-name">Player Name:</label>
                 <input type="text" id="player-name" name="player-name" placeholder="Commander Johnson" required></input>
             </div>
-        </div>
-        <div class="start-box">
-          <button type="button" id="start-btn">Play Game</button>
+            <div class="start-box">
+                <button type="button" id="start-btn">Play Game</button>
+              </div>
         </div>
 
         <div class="gameboard-box invisible">
@@ -107,6 +111,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="turn-text"></div>
+        <div class="button-div">
+            <button type="button" id="restart-btn" class="invisible">Restart Game</button>
         </div>
     </div>
 </body>
