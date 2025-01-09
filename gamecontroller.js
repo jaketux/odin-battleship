@@ -1,38 +1,23 @@
 import { gameBoardModule } from  "./gameboard.js"
 import { createDisplay, updateTurnText } from  "./index.js"
 
-function gameControllerModule (playerName){
+const player = gameBoardModule()
+const playerBoard = player.getGameBoard()
 
-    const player = gameBoardModule()
-    const playerBoard = player.getGameBoard()
+const computer = gameBoardModule()
+const computerBoard = computer.getGameBoard()
 
-    const computer = gameBoardModule()
-    const computerBoard = computer.getGameBoard()
+player.placeAllShipsRandom()
+computer.placeAllShipsRandom()
 
-    player.placeAllShipsRandom()
-    computer.placeAllShipsRandom()
+
+
+
+export const gameController = function (playerName){
 
     const players = [playerName, "Computer"]
 
     let activePlayer = players[0]
-
-    const switchPlayerTurn = function(){
-        activePlayer = activePlayer === players[0] ? players[1] : players[0]  
-    }
-
-    const getActivePlayer = function(){
-        return activePlayer
-    }
-
-    const newRound = function(){
-        player.getGameBoard()
-        computer.getGameBoard()
-    }
-
-    const resetBothBoards = function(){
-        player.resetBoard()
-        computer.resetBoard()
-    }
 
     let winnerOfGame = 0 
 
@@ -41,14 +26,9 @@ function gameControllerModule (playerName){
         if (player.checkSunk()){
             winnerOfGame = players[1]
             updateTurnText(players[1])
-            createDisplay("player", "player")
-            createDisplay("opponent", "opponent")
         } else if (computer.checkSunk()){
             winnerOfGame = players[0]
             console.log(players[0]+" is the winner!")
-            createDisplay("player", "player")
-            createDisplay("opponent", "opponent")
-
             updateTurnText(players[0])
         } 
     }
@@ -61,7 +41,15 @@ function gameControllerModule (playerName){
         winnerOfGame = 0
         activePlayer = players[0]
     }
- 
+
+    const switchPlayerTurn = function(){
+        activePlayer = activePlayer === players[0] ? players[1] : players[0]  
+    }
+    
+    const getActivePlayer = function(){
+        return activePlayer
+    }
+
     function makeComputerMove() {
         let compX = Math.floor(Math.random() * 10)
         let compY = Math.floor(Math.random() * 10)
@@ -73,7 +61,7 @@ function gameControllerModule (playerName){
 
     const playRound = function(x,y){
 
-        if (winnerOfGame !== 0) {
+        if (returnWinner() !== 0) {
             return
         }
 
@@ -84,23 +72,40 @@ function gameControllerModule (playerName){
                 switchPlayerTurn()
                 newRound()
                 makeComputerMove()
-                createDisplay("player", "player")
-                createDisplay("opponent", "opponent")
+                createDisplay(playerBoard, "player")
+                createDisplay(computerBoard, "opponent")
         } else if (activePlayer === players[1]){
                 checkWinner()
                 switchPlayerTurn()
                 newRound()
             } 
         }
+
+    }
+
+    const startNewGame = function () {
+        player.resetBoard()
+        computer.resetBoard()
+        resetWinner()
+        player.placeAllShipsRandom()
+        computer.placeAllShipsRandom()
+        createDisplay(player.getGameBoard(), "player")
+        createDisplay(computer.getGameBoard(), "opponent")
+        updateTurnText()
     }
     
-
+    const newRound = function(){
+        player.getGameBoard()
+        computer.getGameBoard()
+    }
 
     newRound()
 
-    return { player, computer, playerBoard, computerBoard, playRound, getActivePlayer, checkWinner, returnWinner, resetBothBoards, resetWinner }
+    return { playRound, getActivePlayer, checkWinner, returnWinner, resetWinner, switchPlayerTurn, getActivePlayer, startNewGame }
 
 }
 
-export { gameControllerModule }
+
+
+export { playerBoard, computerBoard }
 

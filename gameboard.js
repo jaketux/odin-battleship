@@ -126,7 +126,7 @@ function gameBoardModule() {
             }
         })
     }
-    
+
     function receiveAttack(location1, location2){
         const target = gameBoardArray[location1][location2]
         if (target && target.hasOwnProperty('hit')){

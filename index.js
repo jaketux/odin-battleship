@@ -1,5 +1,5 @@
 
-import { gameControllerModule } from  "./gamecontroller.js"
+import { playerBoard, computerBoard, gameController } from  "./gamecontroller.js"
 
 import "./styles.css";
 
@@ -7,36 +7,10 @@ import missImage from "./icons/miss.svg"
 import hitImage from "./icons/hit.svg"
 import boatsImage from "./icons/boat.svg"
 
-// Need to implement the annoucement of turns and winner of the game in the DOM, then also add the system for players to place ships prior to game commencing.
 const playerName = "Player"
-const game = gameControllerModule(playerName)
 
-
-function updateTurnText() {
-    const turnText = document.querySelector('.turn-text')
-    if(game.returnWinner() !== 0){
-        turnText.textContent = game.returnWinner()+" has won the game! Click Restart Game to play again."
-        const restartBtn = document.querySelector('#restart-btn')
-        restartBtn.addEventListener("click", function(){
-            game.resetBothBoards()
-            game.resetWinner()
-            const playerGridContainer = document.querySelector('.player-game-grid');
-            const opponentGridContainer = document.querySelector('.opponent-game-grid');
-            playerGridContainer.innerHTML = ""
-            opponentGridContainer.innerHTML = ""
-            gameControllerModule(playerName)
-            createDisplay(game.playerBoard,"player")
-            createDisplay(game.computerBoard,"opponent")
-        })
-        restartBtn.classList.remove('invisible')
-    } else {
-        turnText.textContent = game.getActivePlayer()+"'s turn to move!"
-    }
-}
+const controller = gameController("Player")
     
-
-
-
     export const createDisplay = (gameBoard, playername) => {
         
         updateTurnText()
@@ -49,8 +23,7 @@ function updateTurnText() {
         if (mainBox){
             mainBox.remove()
         }
-
-
+    
         const playerGridContainer = document.querySelector('.player-game-grid');
         const opponentGridContainer = document.querySelector('.opponent-game-grid');
 
@@ -67,9 +40,9 @@ function updateTurnText() {
                     const id = gridSquare.id
                     const firstChar = parseInt(id.charAt(id.length-3))
                     const secondChar = parseInt(id.charAt(id.length-1))
-                    game.playRound(firstChar,secondChar) 
-                    createDisplay(game.playerBoard,"player")
-                    createDisplay(game.computerBoard,"opponent")
+                    controller.playRound(firstChar,secondChar) 
+                    createDisplay(playerBoard,"player")
+                    createDisplay(computerBoard,"opponent")
                 })
 
                 if (playername === "player") {
@@ -109,17 +82,36 @@ function updateTurnText() {
                     gridContainer.appendChild(gridSquare)
                 }
             }
-    
+
         return { createDisplay }
     }
 
     const startButton = document.querySelector("#start-btn")
     
     startButton.addEventListener("click", function(){
-        createDisplay(game.playerBoard,"player")
-        createDisplay(game.computerBoard,"opponent")
+        createDisplay(playerBoard,"player")
+        createDisplay(computerBoard,"opponent")
     
     })
+
+    function updateTurnText() {
+        const turnText = document.querySelector('.turn-text')
+        if(controller.returnWinner() !== 0){
+            const restartBtn = document.querySelector('#restart-btn')
+            restartBtn.classList.remove('invisible')
+            turnText.textContent = controller.returnWinner()+" has won the game! Click Restart Game to play again."
+            restartBtn.addEventListener("click", function(){
+                const playerGridContainer = document.querySelector('.player-game-grid');
+                const opponentGridContainer = document.querySelector('.opponent-game-grid');
+                playerGridContainer.innerHTML = ""
+                opponentGridContainer.innerHTML = ""
+                controller.startNewGame()
+                controller
+            })
+        } else {
+            turnText.textContent = controller.getActivePlayer()+"'s turn to move!"
+        }
+    }
 
 
     export {updateTurnText}
