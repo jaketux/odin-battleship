@@ -154,6 +154,9 @@ function gameBoardModule() {
             [,,,,,,,,,,],
             [,,,,,,,,,,]
         ]
+        ships.forEach(ship => {
+           ship.reset() 
+        })
     }
 
     function checkSunk() {

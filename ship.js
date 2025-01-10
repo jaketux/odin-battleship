@@ -26,7 +26,13 @@ function createShip (name, length){
         }
     }
 
-    return { hit, getStatus, shipLength}
+    function reset() {
+        numberOfHits = 0;
+        shipSunk = false
+    }
+
+
+    return { hit, getStatus, shipLength, reset}
 }
 
 export { createShip }
