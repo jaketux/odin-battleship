@@ -159,6 +159,7 @@ body{
     justify-content:center;
     align-items:center;
     margin-right:10px;
+    cursor:pointer;
 }
 
 .options-box{
@@ -204,4 +205,14 @@ body{
 .button-div{
     display:flex;
     flex-direction: column;;
+}
+
+#commence-btn, #restart-btn, #start-btn{
+    cursor:pointer;
+    padding:10px;
+    border-radius:10px;
+    border:2px solid black;
+    background-color: white;
+    font-size:16px;
+    font-weight: 800;
 }

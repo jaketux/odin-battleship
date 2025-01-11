@@ -81,13 +81,18 @@ function createDisplay(playername) {
                     const missImg = document.createElement('img');
                     missImg.src = missImage;
                     missImg.classList.add('small-icon');
+                    gridSquare.style.cursor = "not-allowed"
                     gridSquare.appendChild(missImg);
                 } else if (gameBoard[i][j] === 'Hit'){
                     const hitImg = document.createElement('img');
                     hitImg.src = hitImage;
                     hitImg.classList.add('small-icon');
                     gridSquare.classList.add('hit-boat');
+                    gridSquare.style.cursor = "not-allowed"
                     gridSquare.appendChild(hitImg);
+                } else {
+                    gridSquare.style.cursor = "pointer"
+
                 }
             }
                 gridContainer.appendChild(gridSquare)
@@ -134,7 +139,6 @@ function createPreDisplay(){
                 createDisplay("player")
                 createDisplay("opponent")
             })
-
 		if (gameBoard[i][j] && gameBoard[i][j]!== 'No hit' && gameBoard[i][j] !== "Hit"){
 		    const boatImg = document.createElement('img');
 		    boatImg.src = boatsImage;
