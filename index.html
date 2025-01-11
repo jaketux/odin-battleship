@@ -18,7 +18,7 @@
     <div class="heading-box">
         <div class="heading-text">Battleship</div>
         <img src="./images/warship.png" alt="A warship">
-        <div class="subheading-text">Play the classic naval game and defeat the computer!</div>
+        <div class="subheading-text">Play the classic naval game and defend your fleet!</div>
     </div>
 
     <div class="main-box">
@@ -33,8 +33,8 @@
             <div class="start-box">
                 <button type="button" id="start-btn">Play Game</button>
               </div>
+            </div>
         </div>
-
         <div class="gameboard-box invisible">
             <!-- this should be hidden until game commencement. -->
             <div class="player-section">
@@ -111,11 +111,64 @@
                     </div>
                 </div>
             </div>
+            <div class="ship-selection-section">
+                <div class="selection-heading">Click and drop your ships or select random to randomise placements.</div>
+                <div class="options-box">
+                    <div class="rotate">Rotate</div>
+                    <div class="reset">Reset</div>
+                    <div class="random">Random</div>
+                </div>
+                <div class="ships-box">
+                    <div class="carrier-ship-selection">
+                        <div class="ship-heading">Carrier</div>
+                        <div class="ship-images">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                        </div>
+                    </div>
+                    <div class="battle-ship-selection">
+                        <div class="ship-heading">Battleship</div>
+                        <div class="ship-images">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                        </div>
+                    </div>
+                    <div class="destroyer-ship-selection">
+                        <div class="ship-heading">Destroyer</div>
+                        <div class="ship-images">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                        </div>
+                    </div>
+                    <div class="submarine-ship-selection">
+                        <div class="ship-heading">Submarine</div>
+                        <div class="ship-images">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                        </div>
+                    </div>
+                    <div class="patrolboat-ship-selection">
+                        <div class="ship-heading">Patrol Boat</div>
+                        <div class="ship-images">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                            <img src="./icons/boat.svg" class="small-icon" alt="Boat">
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="turn-text"></div>
-        <div class="button-div">
-            <button type="button" id="restart-btn" class="invisible">Restart Game</button>
-        </div>
+     
+    </div>
+    <div class="turn-text"></div>
+    <div class="button-div">
+        <button type="button" id="commence-btn" class="invisible">Commence Battle</button>
+        <button type="button" id="restart-btn" class="invisible">Restart Game</button>
     </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 import { gameBoardModule } from  "./gameboard.js"
-import { createDisplay, updateTurnText } from  "./index.js"
+import { createDisplay, createPreDisplay, updateTurnText } from  "./index.js"
 
 
 const player = gameBoardModule()
@@ -7,9 +7,6 @@ const player = gameBoardModule()
 const computer = gameBoardModule()
 
     const gameController = function (){
-
-    player.placeAllShipsRandom()
-    computer.placeAllShipsRandom()
 
     const players = ["Player", "Computer"]
 
@@ -71,12 +68,8 @@ const computer = gameBoardModule()
         player.resetBoard()
         computer.resetBoard()
         game.resetWinner()
-        player.placeAllShipsRandom()
-        computer.placeAllShipsRandom()
         console.log(player.getGameBoard())
         console.log(computer.getGameBoard())
-        createDisplay("player")
-        createDisplay("opponent")
         updateTurnText()
     }
 
