@@ -130,15 +130,6 @@ function createPreDisplay(){
             const gridSquare = document.createElement('div');
             gridSquare.classList.add('grid-game-square')
             gridSquare.id = `${"square"}-${i}-${j}`
-            gridSquare.replaceWith(gridSquare.cloneNode(true));
-            gridSquare.addEventListener("click", function(){
-                const id = gridSquare.id
-                const firstChar = parseInt(id.charAt(id.length-3))
-                const secondChar = parseInt(id.charAt(id.length-1))
-                playRound(firstChar,secondChar) 
-                createDisplay("player")
-                createDisplay("opponent")
-            })
 		if (gameBoard[i][j] && gameBoard[i][j]!== 'No hit' && gameBoard[i][j] !== "Hit"){
 		    const boatImg = document.createElement('img');
 		    boatImg.src = boatsImage;
@@ -161,7 +152,34 @@ randomiseButton.addEventListener('click', function(){
     playerGridContainer.innerHTML = ""
     player.resetBoard()
     player.placeAllShipsRandom()
+    draggableIds.forEach((id) => {
+        const element = document.getElementById(id)
+        if (element) {
+            element.classList.add('placed')
+        }
+    })
     createPreDisplay()
+})
+
+const rotateButton = document.querySelector('.rotate')
+const shipsBox = document.querySelector('#ships-box')
+
+rotateButton.addEventListener('click', function(){
+    if(shipsBox.classList.contains('horizontal')){
+        shipsBox.classList.remove('horizontal')
+        shipsBox.classList.add('vertical')    
+    } else if (shipsBox.classList.contains('vertical')){
+        shipsBox.classList.remove('vertical')
+        shipsBox.classList.add('horizontal')
+    }
+    
+    if (currentOrientation === "horizontal") {
+        currentOrientation = "vertical"
+        console.log(currentOrientation)
+    } else if (currentOrientation === "vertical") {
+        currentOrientation = "horizontal"
+        console.log(currentOrientation)
+    }
 })
 
 const resetButton = document.querySelector('.reset')
@@ -170,6 +188,21 @@ resetButton.addEventListener('click', function(){
     const playerGridContainer = document.querySelector('.player-game-grid');
     playerGridContainer.innerHTML = ""
     player.resetBoard()
+    draggableIds.forEach((id) => {
+        const element = document.getElementById(id)
+        if (element) {
+            element.draggable = true;
+            element.style.cursor = "grab";
+            element.classList.remove('placed') 
+            const ship = player.shipObjects[id];
+            if (ship) {
+                ship.shipPlaced = false; // This ensures shipPlaced is false
+                console.log(ship)
+            }  
+            
+        }
+    })
+    
     createPreDisplay()
 })
 
@@ -188,6 +221,19 @@ function updateTurnText() {
         }
         restartBtn.addEventListener("click", function(){
             game.startNewGame()
+            draggableIds.forEach((id) => {
+                const element = document.getElementById(id)
+                if (element) {
+                    element.draggable = true;
+                    element.style.cursor = "grab";
+                    element.classList.remove('placed') 
+                    const ship = player.shipObjects[id];
+                    if (ship) {
+                        ship.shipPlaced = false; // This ensures shipPlaced is false
+                        console.log(ship)
+                    }  
+                }
+            })
             createPreDisplay()
             restartBtn.classList.add('invisible')
         })
@@ -199,6 +245,8 @@ function updateTurnText() {
         }
     }
 }
+
+let currentOrientation = "horizontal"
 
 const startButton = document.querySelector("#start-btn")
 
@@ -213,6 +261,80 @@ commenceButton.addEventListener("click", function(){
     createDisplay("player")
     createDisplay("opponent")
 })
+
+let draggedElement = null
+let initialPosition = { x: 0, y: 0, parent: null };
+
+
+const draggableIds = [
+    'carrierShip', 
+    'battleShip', 
+    'destroyerShip', 
+    'submarineShip', 
+    'patrolBoatShip'
+]
+
+draggableIds.forEach((id) => {
+    const element = document.getElementById(id)
+    if (element) {
+        element.addEventListener('mousedown', (event) => {
+            draggedElement = event.target
+            const rect = draggedElement.getBoundingClientRect();
+            initialPosition = {
+                x: rect.left,
+                y: rect.top,
+                parent: draggedElement.parentElement
+            };
+            draggedElement.style.position = 'absolute'
+            draggedElement.style.pointerEvents = 'none'
+            document.body.appendChild(draggedElement)
+            moveAt(event.pageX, event.pageY)    
+        })
+    }
+})
+
+function moveAt(pageX, pageY) {
+    draggedElement.style.left = pageX + 'px'
+    draggedElement.style.top = pageY + 'px'
+}
+
+document.addEventListener('mousemove', (event) => {
+    if (draggedElement) {
+        moveAt(event.pageX, event.pageY)
+    }
+})
+
+document.addEventListener('mouseup', (event) => {
+    if (draggedElement){
+        const dropTarget = document.elementFromPoint(event.clientX, event.clientY)
+        if (dropTarget && dropTarget.classList.contains('grid-game-square')){
+            const id = dropTarget.id
+            const firstChar = parseInt(id.charAt(id.length-3))
+            const secondChar = parseInt(id.charAt(id.length-1))
+            const shipObject = player.shipObjects[draggedElement.id];
+
+            if (shipObject) {
+                player.placeShip (shipObject, firstChar, secondChar, currentOrientation)
+                createPreDisplay()
+                if (shipObject.shipPlaced = "true"){
+                    draggedElement.classList.add('placed')
+                }
+            } else {
+                console.error('No matching ship found')
+            }
+        }
+        draggedElement.style.left = initialPosition.x + 'px';
+        draggedElement.style.top = initialPosition.y + 'px';
+        draggedElement.style.position = ''
+        draggedElement.style.pointerEvents = ''
+        initialPosition.parent.appendChild(draggedElement);
+        draggedElement.draggable = false;
+        draggedElement.style.cursor = "not-allowed";
+        draggedElement = null
+    }
+})
+
+
 
 
 

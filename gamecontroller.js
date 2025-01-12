@@ -86,16 +86,21 @@ const playRound = function(x,y){
     if (game.returnWinner() !== 0) {
         return
     }
+    
+    let result = null
 
     if (game.getActivePlayer() === "Player") {
             console.log(game.returnWinner())
-            computer.receiveAttack(x,y)
-            game.checkWinner()
-            game.switchPlayerTurn()
-            game.newRound()
-            createDisplay("player")
-            createDisplay("opponent")
-            game.makeComputerMove()
+            result = computer.receiveAttack(x,y)
+            if (result === "A ship has been hit!" || result === "Attack missed!") {
+                game.checkWinner()
+                game.switchPlayerTurn()
+                game.newRound()
+                createDisplay("player")
+                createDisplay("opponent")
+                game.makeComputerMove()
+            }
+
     } else if (game.getActivePlayer() === "Computer"){
             game.checkWinner()
             game.switchPlayerTurn()

@@ -1,0 +1,1 @@
+function createShip(t,n){let e,i=0,r=!1,u=n;return{hit:function(){r||(i+=1,r=function(){if(i===u)return!0}())},getStatus:function(){return{name:t,numberOfHits:i,shipLength:n,shipSunk:r}},shipLength:u,reset:function(){i=0,r=!1,e=!1},shipPlaced:e}}export{createShip};

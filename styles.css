@@ -62,6 +62,7 @@ body{
 .small-icon{
     height:30px;
     width: 30px;
+    pointer-events:none;
 }
 
 .contains-boat{
@@ -146,7 +147,7 @@ body{
     vertical-align:middle;
     line-height: normal;
     border:1px solid black;
-
+    cursor: grab;
 }
 
 .rotate, .reset, .random{
@@ -184,21 +185,58 @@ body{
     margin-right:15px;
 
 }
-.ships-box{
+
+.horizontal{
     display:flex;
     flex-direction: column;
     justify-content:center;
     align-items:center;
 }
 
-.ships-box>*{
+.vertical{
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    align-items:center;
+}
+
+.vertical>.carrier-ship-selection, 
+.vertical>.battle-ship-selection, 
+.vertical>.destroyer-ship-selection, 
+.vertical>.submarine-ship-selection, 
+.vertical>.patrolboat-ship-selection {
+    display:flex;
+    flex-direction:column;
+    height:250px;
+    width:50px;
+    margin-right:30px;
+    justify-content:space-evenly;
+}
+
+.vertical>.carrier-ship-selection>.ship-images>.selection-icon, 
+.vertical>.battle-ship-selection>.ship-images>.selection-icon, 
+.vertical>.destroyer-ship-selection>.ship-images>.selection-icon, 
+.vertical>.submarine-ship-selection>.ship-images>.selection-icon, 
+.vertical>.patrolboat-ship-selection>.ship-images>.selection-icon {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    margin-right:0px;
+    margin-left:0px;
+    margin-top:5px;
+
+}
+
+#ships-box>*{
     display:flex;
     justify-content:space-between;
     align-items:center;
     margin-bottom:5px; 
+    
 }
 
-.ships-box:last-child{
+#ships-box:last-child{
     margin-bottom:5px;
 }
 
@@ -215,4 +253,21 @@ body{
     background-color: white;
     font-size:16px;
     font-weight: 800;
+}
+
+.selection-icon{
+    margin-right:6px;
+    margin-top:4px;
+}
+
+.selection-icon:nth-child(1){
+    margin-left:5px;
+}
+
+.selection-icon:last-child{
+    margin-right:5px;
+}
+
+.placed{
+    background-color: lightgreen;
 }

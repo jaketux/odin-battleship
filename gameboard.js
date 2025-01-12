@@ -27,37 +27,56 @@ function gameBoardModule() {
 
     let ships = [carrierShip, battleShip, destroyerShip, submarineShip, patrolBoatShip]
 
+    let shipObjects = {
+        "carrierShip" : carrierShip,
+        "battleShip" : battleShip,
+        "destroyerShip" : destroyerShip,
+        "submarineShip" : submarineShip,
+        "patrolBoatShip" : patrolBoatShip
+    }
+
     const placeShip = function (ship, x, y, direction){
 
-        if (direction === "horizontal"){
-            if (y + ship.shipLength > 10) {
-                return "Error, ship exceeds boards bounds"
-            }
-            
-            for (var i = 0; i<ship.shipLength;i++){
-                if (gameBoardArray[x][y+i] !== undefined) {
-                    return "Error, ship has already been placed here"
+        if (!ship.shipPlaced) {
+
+            if (direction === "horizontal"){
+                if (y + ship.shipLength > 10) {
+                    return "Error, ship exceeds boards bounds"
+                }
+                
+                for (var i = 0; i<ship.shipLength;i++){
+                    if (gameBoardArray[x][y+i] !== undefined) {
+                        return "Error, ship has already been placed here"
+                    }
+                }
+
+                for (var i = 0; i<ship.shipLength; i++) {
+                    gameBoardArray[x][y+i] = ship
+                    ship.shipPlaced = true
+                    console.log(ship.shipPlaced)
+                    console.log(gameBoardArray)
+                }
+
+            } else if (direction === "vertical"){
+                if (x + ship.shipLength > 10) {
+                    return "Error, ship exceeds boards bounds"
+                }
+
+                for (var i = 0; i<ship.shipLength;i++){
+                    if (gameBoardArray[y+i][x] !== undefined) {
+                        return "Error, ship has already been placed here"
+                    }
+                }
+                for (var i = 0; i<ship.shipLength; i++) {
+                    gameBoardArray[x+i][y] = ship
+                    ship.shipPlaced = true
+                    console.log(ship.shipPlaced)
+                    console.log(gameBoardArray)
                 }
             }
 
-            for (var i = 0; i<ship.shipLength; i++) {
-                gameBoardArray[x][y+i] = ship
-            }
-
-        } else if (direction === "vertical"){
-            if (x + ship.shipLength > 10) {
-                return "Error, ship exceeds boards bounds"
-            }
-
-            for (var i = 0; i<ship.shipLength;i++){
-                if (gameBoardArray[y+i][x] !== undefined) {
-                    return "Error, ship has already been placed here"
-                }
-            }
-            for (var i = 0; i<ship.shipLength; i++) {
-                gameBoardArray[x+i][y] = ship
-            }
         }
+
         return gameBoardArray
     }
 
@@ -123,6 +142,7 @@ function gameBoardModule() {
             while (!placed) {
                 placeShipRandom(ship)
                 placed = true
+                ship.shipPlaced = true
             }
         })
     }
@@ -168,7 +188,7 @@ function gameBoardModule() {
         return true
     }
     
-    return {placeShip, placeAllShipsRandom, getGameBoard, receiveAttack, checkSunk, resetBoard}
+    return {placeShip, placeAllShipsRandom, getGameBoard, receiveAttack, checkSunk, resetBoard, shipObjects}
 
 }
 

@@ -2,7 +2,8 @@
   "name": "odin-battleship",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
+  "scripts": { 
+    "build": "webpack",
     "test": "jest",
     "watch": "./gameboard.js"
   },

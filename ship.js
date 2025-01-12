@@ -3,6 +3,7 @@ function createShip (name, length){
     let numberOfHits = 0
     let shipSunk = false
     let shipLength = length 
+    let shipPlaced 
 
     function checkStatus(){
         if (numberOfHits === shipLength) {
@@ -29,10 +30,10 @@ function createShip (name, length){
     function reset() {
         numberOfHits = 0;
         shipSunk = false
+        shipPlaced = false
     }
 
-
-    return { hit, getStatus, shipLength, reset}
+    return { hit, getStatus, shipLength, reset, shipPlaced}
 }
 
 export { createShip }
